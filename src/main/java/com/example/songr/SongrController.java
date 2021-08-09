@@ -14,6 +14,9 @@ import java.util.Locale;
 @Controller
 public class SongrController {
 
+    @RequestMapping("/")
+    public String home(){return "home.html";}
+
     @RequestMapping("/hello")
     public String hello(){
         return "helloWorld.html";
