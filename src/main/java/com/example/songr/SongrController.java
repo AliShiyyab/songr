@@ -4,9 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.List;
 
 
 @Controller
@@ -14,6 +15,9 @@ public class SongrController {
 
     @Autowired
     AlbumRepository albumRepository;
+
+    @Autowired
+    songRepository repo;
 
     @RequestMapping("/")
     public String home(){return "home.html";}
@@ -41,8 +45,6 @@ public class SongrController {
     public String addAlbum(){ return "addedalbums.html";}
 
     @PostMapping("/addAlbum")
-//
-//    @Pos("AllAlbums")
     public RedirectView addAlbum( @RequestParam(value="title") String title,
                                   @RequestParam(value="artist")String artist,
                                   @RequestParam(value="songCount") int songCount,
@@ -52,4 +54,14 @@ public class SongrController {
         albumRepository.save(album);
         return new RedirectView("/albums");
     }
+
+    @GetMapping("/album/{id}")
+    public String showSong(@PathVariable(value="id") Integer id, Model m){
+        Album album = albumRepository.findById(id).get();
+        List<Song> songs = album.getSongs();
+        m.addAttribute("songs",songs);
+        return "songs";
+    }
+
+
 }
