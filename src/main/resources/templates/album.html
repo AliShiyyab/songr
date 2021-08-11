@@ -8,11 +8,12 @@
 <body>
 <h1>Album</h1>
   <div th:each="album : ${album}">
-        <img th:src="${album.imageUrl}" >
+        <img th:src="${album.imageUrl}" alt="Not Found" >
         <p>AlBum Title: <span th:text="${album.title}"></span></p>
         <p>AlBum Artist: <span th:text="${album.artist}"></span></p>
         <p>AlBum Length: <span th:text="${album.length}"></span></p>
         <p>AlBum Song Count : <span th:text="${album.songCount}"></span></p>
   </div>
+
 </body>
 </html>
