@@ -1,5 +1,6 @@
 package com.example.songr;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Album {
@@ -11,6 +12,9 @@ public class Album {
     public long getId() {
         return id;
     }
+
+    @OneToMany
+    List<Song> songs;
 
     private String title;
     private String artist;
@@ -28,6 +32,15 @@ public class Album {
 
     public Album(){
 
+    }
+
+    public Album(String title, String artist){
+        this.title = title;
+        this.artist=artist;
+    }
+
+    public List<Song> getSongs() {
+        return songs;
     }
 
     public String getImageUrl() {
